@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Распорядок</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#2F4BFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Распорядок">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDF0F6;--card:#fff;--ink:#14213D;--mute:#6B7690;--line:#DCE1EC;--acc:#2F4BFF;--acc2:#E4E9FF;--on:#fff;--ok:#14A37F;--warn:#E5484D;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1424;--card:#171F36;--ink:#E8ECF8;--mute:#8B95B3;--line:#27304D;--acc:#7C8DFF;--acc2:#222B52;--on:#0E1424;--ok:#3CCB9F;--warn:#FF7A7F;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1424;--card:#171F36;--ink:#E8ECF8;--mute:#8B95B3;--line:#27304D;--acc:#7C8DFF;--acc2:#222B52;--on:#0E1424;--ok:#3CCB9F;--warn:#FF7A7F;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Onest,-apple-system,"SF Pro Text",system-ui,sans-serif}
+button,input,select{font:inherit}input,select{font-size:16px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;gap:4px;background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+nav button{flex:1;border:0;background:none;color:var(--mute);font-weight:600;font-size:13px;padding:10px 4px;border-radius:10px}
+nav button.on{color:var(--acc);background:var(--acc2)}
+.brand{display:none}
+main{padding:22px 16px 110px;max-width:760px;margin:0 auto}
+h1{font-size:30px;line-height:1.1;margin:0;letter-spacing:-.02em;text-transform:capitalize}
+.hd{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.sub{color:var(--mute)}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 12px;cursor:pointer}
+.btn.p{background:var(--acc);border-color:var(--acc);color:var(--on);font-weight:600}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin:8px 0 18px}.bar i{display:block;height:100%;background:var(--ok);transition:width .3s}
+.add{display:flex;gap:8px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px}
+.add input[type=text]{flex:1 1 200px;border:0;background:none;color:var(--ink);outline:0;padding:6px}
+input,select{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.grp{margin:24px 0 4px;font-size:13px;color:var(--mute);font-weight:600}
+.row{display:grid;grid-template-columns:46px 26px 1fr;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--line)}
+.tm{font-variant-numeric:tabular-nums;color:var(--mute);font-size:13px}
+.ck{width:26px;height:26px;border-radius:50%;border:2px solid var(--mute);background:none;padding:0;cursor:pointer;color:#fff;font-size:14px;line-height:1}
+.p1 .ck{border-color:var(--acc)}.p2 .ck{border-color:var(--warn)}
+.ck.on{background:var(--ok);border-color:var(--ok)}
+.tt{cursor:pointer}.meta{font-size:12px;color:var(--mute)}
+.done .tt{text-decoration:line-through;color:var(--mute)}
+.wk{display:grid;gap:10px}
+.dc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;cursor:pointer}
+.dc.td{border-color:var(--acc)}.wi{font-size:13px;margin-top:5px}.wi.done{text-decoration:line-through;color:var(--mute)}
+.bars{display:flex;gap:6px;align-items:flex-end;height:140px;margin-top:10px}
+.bc{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;font-size:11px;color:var(--mute)}
+.bc i{width:100%;background:var(--acc);border-radius:5px 5px 0 0}
+.hr{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--line)}
+.sq{display:flex;gap:3px}.sq u{width:12px;height:12px;border-radius:3px;background:var(--line)}.sq u.on{background:var(--ok)}.sq u.off{background:var(--warn);opacity:.55}
+.mg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line);background:var(--card);border-radius:12px;overflow:hidden}
+.wd{padding:8px 0;text-align:center;font-size:12px;color:var(--mute);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.wd.we{color:#E0A800}
+.mc{min-height:96px;padding:4px 2px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:0}
+.mc.o{background:var(--bg);opacity:.6}
+.dn{align-self:center;width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;font-size:14px}.dn.t{background:var(--acc);color:var(--on);font-weight:600}
+.ch{font-size:11px;line-height:1.35;color:#1B2236;border-radius:4px;padding:1px 4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ch.done{opacity:.5;text-decoration:line-through}
+.mo{font-size:11px;color:var(--mute);text-align:center}
+.sw{display:flex;gap:8px;margin-top:6px}.sw button{width:28px;height:28px;border-radius:50%;border:2px solid transparent;padding:0;cursor:pointer}.sw button.on{border-color:var(--ink)}
+@media(min-width:820px){.mc{min-height:120px}.ch{font-size:12px}}
+.foot{margin-top:36px;font-size:12px}
+dialog{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:16px;width:min(440px,92vw);padding:20px}
+dialog::backdrop{background:rgba(10,15,30,.5)}
+dialog h2{margin:0 0 6px}
+dialog label{display:block;font-size:12px;color:var(--mute);margin-top:12px}
+dialog input,dialog select{display:block;width:100%;margin-top:4px;color:var(--ink)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ac{display:flex;gap:8px;margin-top:20px}.ac span{flex:1}
+@media(min-width:820px){
+ body>.app{display:grid;grid-template-columns:230px 1fr}
+ nav{position:sticky;top:0;height:100vh;flex-direction:column;border:0;border-right:1px solid var(--line);padding:30px 14px}
+ nav button{flex:none;text-align:left;font-size:15px;padding:11px 14px}
+ .brand{display:block;font-weight:700;font-size:20px;margin:0 8px 22px}
+ main{padding:38px 44px;width:100%;max-width:1000px;margin:0}
+ .wk{grid-template-columns:repeat(7,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<nav><div class="brand">Распорядок</div><button data-v="day">Сегодня</button><button data-v="month">Месяц</button><button data-v="week">Неделя</button><button data-v="stats">Итоги</button></nav>
+<main id="main"></main>
+</div>
+<dialog id="dlg"></dialog>
+<script>
+const $=s=>document.querySelector(s),pad=n=>String(n).padStart(2,'0');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const pd=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const add=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return iso(d)};
+const TD=()=>iso(new Date());
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=(s,o)=>pd(s).toLocaleDateString('ru-RU',o);
+const REP={none:'Не повторять',daily:'Каждый день',weekdays:'По будням',weekly:'Каждую неделю'};
+const GN=['Без времени','Утро','День','Вечер'];
+const opts=(o,sel)=>Object.entries(o).map(([k,v])=>`<option value="${k}"${String(k)===String(sel)?' selected':''}>${v}</option>`).join('');
+let tasks=[],view='day',cur=TD(),col=null,sync='local';
+
+const lload=()=>{try{return JSON.parse(localStorage.getItem('rt')||'[]')}catch(e){return[]}};
+const lsave=()=>{try{localStorage.setItem('rt',JSON.stringify(tasks))}catch(e){}};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function persist(t){if(col){const{id,...r}=t;col.doc(id).set(r).catch(()=>{sync='err';render()})}else lsave()}
+function put(t){const i=tasks.findIndex(x=>x.id===t.id);i<0?tasks.push(t):tasks[i]=t;persist(t);render()}
+function del(id){tasks=tasks.filter(x=>x.id!==id);if(col)col.doc(id).delete().catch(()=>{});else lsave();render()}
+function toggle(t,d){const x=Object.assign({},t.done);x[d]?delete x[d]:x[d]=1;put({...t,done:x})}
+
+function occ(t,d){if(d<t.date)return false;const r=t.rep||'none',w=pd(d).getDay();
+ return r==='none'?t.date===d:r==='daily'||(r==='weekdays'&&w>0&&w<6)||(r==='weekly'&&w===pd(t.date).getDay())}
+const isDone=(t,d)=>!!(t.done&&t.done[d]);
+const cmp=(a,b)=>(a.time||'99').localeCompare(b.time||'99')||(b.prio||0)-(a.prio||0)||(a.created||0)-(b.created||0);
+const grp=t=>!t.time?0:t.time<'12:00'?1:t.time<'18:00'?2:3;
+
+const row=(t,d,late)=>`<div class="row ${isDone(t,d)?'done':''} p${t.prio||0}"><span class="tm">${t.time||''}</span><button class="ck ${isDone(t,d)?'on':''}" data-a="tg" data-id="${t.id}" data-d="${d}" aria-label="Отметить">${isDone(t,d)?'✓':''}</button><div class="tt" data-a="ed" data-id="${t.id}">${esc(t.title)}<div class="meta">${late?'с '+fmt(d,{day:'numeric',month:'short'})+' ':''}${t.rep&&t.rep!=='none'?'↻ '+REP[t.rep].toLowerCase():''}</div></div></div>`;
+
+function dayView(){
+ const T=TD(),L=tasks.filter(t=>occ(t,cur)).sort(cmp),n=L.filter(t=>isDone(t,cur)).length;
+ const late=cur===T?tasks.filter(t=>(t.rep||'none')==='none'&&t.date<cur&&!isDone(t,t.date)).sort(cmp):[];
+ const title=cur===T?'Сегодня':cur===add(T,1)?'Завтра':cur===add(T,-1)?'Вчера':fmt(cur,{weekday:'long'});
+ let h=`<div class="hd"><div><h1>${title}</h1><div class="sub">${fmt(cur,{weekday:'long',day:'numeric',month:'long'})}</div></div><div><button class="btn" data-a="prev">‹</button> <button class="btn" data-a="now">Сегодня</button> <button class="btn" data-a="next">›</button></div></div>
+ <div class="sub">${L.length?'Выполнено '+n+' из '+L.length:'На этот день дел нет'}</div><div class="bar"><i style="width:${L.length?n*100/L.length:0}%"></i></div>
+ <div class="add"><input type="text" id="nt" placeholder="Новая задача…" enterkeyhint="done"><input type="time" id="ntm"><select id="nr">${opts(REP,'none')}</select><button class="btn p" data-a="add">Добавить</button></div>`;
+ if(late.length)h+='<div class="grp">Просрочено</div>'+late.map(t=>row(t,t.date,1)).join('');
+ [0,1,2,3].forEach(g=>{const r=L.filter(t=>grp(t)===g);if(r.length)h+=`<div class="grp">${GN[g]}</div>`+r.map(t=>row(t,cur)).join('')});
+ return h}
+
+const COL=['#B9C6FF','#FBE38E','#F8B4AE','#9BE0F0','#CFA9F2','#A9EBC8','#FAC89A'];
+const colOf=t=>COL[t.color!==undefined&&t.color!==''?+t.color:[...t.id].reduce((a,c)=>a+c.charCodeAt(0),0)%COL.length];
+const mon=n=>{const d=pd(cur);d.setDate(1);d.setMonth(d.getMonth()+n);cur=iso(d)};
+
+function monthView(){
+ const f=cur.slice(0,8)+'01',first=pd(f),m=first.getMonth(),start=add(f,-((first.getDay()+6)%7)),T=TD();
+ let h=`<div class="hd"><div><h1>${fmt(f,{month:'long'})}</h1><div class="sub">${first.getFullYear()}</div></div><div><button class="btn" data-a="pm">‹</button> <button class="btn" data-a="now">Сегодня</button> <button class="btn" data-a="nm">›</button></div></div><div class="mg">`+['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map((x,i)=>`<div class="wd${i>4?' we':''}">${x}</div>`).join('');
+ for(let i=0;i<42;i++){const d=add(start,i);if(i===35&&pd(d).getMonth()!==m)break;
+  const L=tasks.filter(t=>occ(t,d)).sort(cmp),o=pd(d).getMonth()!==m;
+  h+=`<div class="mc${o?' o':''}" data-a="mday" data-d="${d}"><span class="dn${d===T?' t':''}" data-a="go" data-d="${d}">${pd(d).getDate()}</span>`+L.slice(0,3).map(t=>`<div class="ch${isDone(t,d)?' done':''}" style="background:${colOf(t)}" data-a="ed" data-id="${t.id}">${esc(t.title)}</div>`).join('')+(L.length>3?`<div class="mo" data-a="go" data-d="${d}">+${L.length-3}</div>`:'')+'</div>'}
+ return h+'</div><p class="sub foot">Нажмите на пустое место дня, чтобы добавить задачу, на задачу — чтобы изменить, на число — чтобы открыть день.</p>'}
+
+function weekView(){
+ const m=add(cur,-((pd(cur).getDay()+6)%7));
+ let h=`<div class="hd"><div><h1>Неделя</h1><div class="sub">${fmt(m,{day:'numeric',month:'long'})} — ${fmt(add(m,6),{day:'numeric',month:'long'})}</div></div><div><button class="btn" data-a="pw">‹</button> <button class="btn" data-a="nw">›</button></div></div><div class="wk">`;
+ for(let i=0;i<7;i++){const d=add(m,i),L=tasks.filter(t=>occ(t,d)).sort(cmp);
+  h+=`<div class="dc ${d===TD()?'td':''}" data-a="go" data-d="${d}"><b>${fmt(d,{weekday:'short',day:'numeric'})}</b>`+L.map(t=>`<div class="wi ${isDone(t,d)?'done':''}">${t.time?t.time+' ':''}${esc(t.title)}</div>`).join('')+(L.length?'':'<div class="meta">—</div>')+'</div>'}
+ return h+'</div>'}
+
+function statsView(){
+ const days=[...Array(14)].map((_,i)=>add(TD(),i-13));
+ const S=days.map(d=>{const L=tasks.filter(t=>occ(t,d));return{d,n:L.length,k:L.filter(t=>isDone(t,d)).length}});
+ const tot=S.reduce((a,s)=>a+s.n,0),dn=S.reduce((a,s)=>a+s.k,0);
+ let h=`<div class="hd"><div><h1>Итоги</h1><div class="sub">За 14 дней выполнено ${tot?Math.round(dn*100/tot):0}% (${dn} из ${tot})</div></div></div><div class="bars">`+S.map(s=>`<div class="bc"><i style="height:${Math.max(3,s.n?Math.round(s.k*100/s.n):0)}px" title="${s.k}/${s.n}"></i>${pd(s.d).getDate()}</div>`).join('')+'</div><div class="grp">Привычки и повторы</div>';
+ const H=tasks.filter(t=>t.rep&&t.rep!=='none');
+ h+=H.length?H.map(t=>{let s=0;for(let i=0;i<365;i++){const d=add(TD(),-i);if(d<t.date)break;if(!occ(t,d))continue;if(isDone(t,d))s++;else if(i)break}
+  return `<div class="hr"><div>${esc(t.title)}<div class="meta">Серия: ${s} дн.</div></div><div class="sq">${days.slice(7).map(d=>`<u class="${!occ(t,d)?'':isDone(t,d)?'on':'off'}"></u>`).join('')}</div></div>`}).join(''):'<div class="sub">Добавьте задачу с повтором — здесь появится серия выполнений.</div>';
+ return h}
+
+const syncText=()=>sync==='cloud'?'● Синхронизация включена: данные доступны на всех ваших устройствах':sync==='err'?'● Ошибка синхронизации, изменения могут не сохраниться':'○ Данные хранятся только на этом устройстве';
+
+function render(){
+ document.querySelectorAll('nav [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===view));
+ const ids=['nt','ntm','nr'],keep=ids.map(i=>$('#'+i)&&$('#'+i).value),act=document.activeElement&&document.activeElement.id;
+ $('#main').innerHTML=(view==='day'?dayView():view==='month'?monthView():view==='week'?weekView():statsView())+`<p class="sub foot">${syncText()}</p>`;
+ ids.forEach((i,k)=>{if($('#'+i)&&keep[k])$('#'+i).value=keep[k]});
+ if(act==='nt'&&$('#nt'))$('#nt').focus()}
+
+function addTask(){const el=$('#nt'),title=el.value.trim();if(!title)return;
+ const t={id:uid(),title,date:cur,time:$('#ntm').value,rep:$('#nr').value,prio:0,done:{},created:Date.now()};
+ el.value='';$('#ntm').value='';$('#nr').value='none';put(t);$('#nt').focus()}
+
+function edit(id,d0){const t=id?tasks.find(x=>x.id===id):{title:'',date:d0,time:'',rep:'none',prio:0,color:''};if(!t)return;const D=$('#dlg');
+ D.innerHTML=`<h2>${id?'Задача':'Новая задача'}</h2><label>Название<input id="e1" type="text" value="${esc(t.title)}"></label>
+ <div class="g2"><label>Дата начала<input id="e2" type="date" value="${t.date}"></label><label>Время<input id="e3" type="time" value="${t.time||''}"></label></div>
+ <div class="g2"><label>Повтор<select id="e4">${opts(REP,t.rep||'none')}</select></label><label>Важность<select id="e5">${opts({0:'Обычная',1:'Важная',2:'Срочная'},t.prio||0)}</select></label></div>
+ <label>Цвет</label><div class="sw">${COL.map((c,i)=>`<button data-a="cp" data-c="${i}" style="background:${c}" class="${String(t.color)===String(i)?'on':''}"></button>`).join('')}</div><input id="e6" type="hidden" value="${t.color===undefined?'':t.color}">
+ <div class="ac">${id?'<button class="btn" data-a="rm">Удалить</button>':''}<span></span><button class="btn" data-a="cl">Отмена</button><button class="btn p" data-a="sv">Сохранить</button></div>`;
+ D.dataset.id=id||'';D.showModal();if(!id)$('#e1').focus()}
+
+document.addEventListener('click',e=>{
+ const v=e.target.closest('[data-v]');if(v){view=v.dataset.v;return render()}
+ const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,D=$('#dlg'),id=b.dataset.id||D.dataset.id;
+ const t=tasks.find(x=>x.id===id);
+ if(a==='tg'&&t)return toggle(t,b.dataset.d);
+ if(a==='ed')return edit(id);
+ if(a==='mday')return edit('',b.dataset.d);
+ if(a==='cp'){$('#e6').value=b.dataset.c;document.querySelectorAll('.sw button').forEach(x=>x.classList.toggle('on',x===b));return}
+ if(a==='add')return addTask();
+ if(a==='cl')return D.close();
+ if(a==='rm'){D.close();return del(id)}
+ if(a==='sv'){const title=$('#e1').value.trim();if(!title)return;D.close();const n={title,date:$('#e2').value||(t?t.date:cur),time:$('#e3').value,rep:$('#e4').value,prio:+$('#e5').value,color:$('#e6').value};
+  return put(t?{...t,...n}:{...n,id:uid(),done:{},created:Date.now()})}
+ if(a==='pm')mon(-1);else if(a==='nm')mon(1);else if(a==='prev')cur=add(cur,-1);else if(a==='next')cur=add(cur,1);else if(a==='now')cur=TD();
+ else if(a==='pw')cur=add(cur,-7);else if(a==='nw')cur=add(cur,7);
+ else if(a==='go'){cur=b.dataset.d;view='day'}
+ render()});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='nt')addTask()});
+$('#dlg').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.close()});
+
+tasks=lload();render();
+(async()=>{try{
+ const[db,u]=await Promise.all([claude.use('db'),claude.use('user')]);
+ const id=u&&await u.id();if(!db||!id)return;
+ col=db.collection('data/users/'+id+'/tasks');let first=true;
+ col.onSnapshot(s=>{const rem=s.docs.map(d=>({...d.data(),id:d.id}));
+  if(first&&!rem.length&&tasks.length){tasks.forEach(persist);try{localStorage.removeItem('rt')}catch(e){}}else tasks=rem;
+  first=false;sync='cloud';render()},()=>{sync='err';render()});
+}catch(e){}})();
+</script>
+<script>
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(err => console.warn("Не удалось включить офлайн-режим:", err));
+  });
+}
+</script>
+</body>
+</html>
